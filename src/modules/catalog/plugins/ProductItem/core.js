@@ -30,7 +30,7 @@ import Typography from '@common/Typography';
 
 // import CartIcon from '@heroicons/react/24/outline/ShoppingCartIcon';
 import HeartIcon from '@heroicons/react/24/outline/HeartIcon';
-// import CompareIcon from '@heroicons/react/24/outline/ArrowsRightLeftIcon';
+import CompareIcon from '@heroicons/react/24/outline/ArrowsRightLeftIcon';
 import EyeIcon from '@heroicons/react/24/outline/EyeIcon';
 import EyeSolidIcon from '@heroicons/react/20/solid/EyeIcon';
 import TrashIcon from '@heroicons/react/24/solid/TrashIcon';
@@ -446,49 +446,7 @@ const ProductItem = (props) => {
                             </Typography>
                         </Button>
                     </Show>
-                    <Show when={showWishlist || showProductCompare}>
-                        <div className="flex-row gap-1 hidden tablet:flex desktop:flex">
-                            <Show when={showWishlist && !usedInWishlist}>
-                                <Button
-                                    iconOnly
-                                    icon={<HeartIcon />}
-                                    iconProps={{ className: feed ? '!w-4 !h-4 text-neutral-white' : '!w-4 !h-4 group-hover:text-neutral-white' }}
-                                    variant={feed ? 'primary' : 'outlined'}
-                                    onClick={() => handleFeed(props)}
-                                    className={classNames(
-                                        'swift-action-towishlist !p-[10px] !border-neutral-200 hover:bg-primary group',
-                                        'hover:!shadow-none focus:!shadow-none hover:!opacity-100',
-                                    )}
-                                />
-                            </Show>
-                            <Show when={usedInWishlist}>
-                                <Button
-                                    iconOnly
-                                    icon={<TrashIcon />}
-                                    iconProps={{ className: '!w-4 !h-4 group-hover:text-neutral-white text-primary' }}
-                                    variant="outlined"
-                                    onClick={() => handlingRemove()}
-                                    className={classNames(
-                                        'swift-action-toremove !p-[10px] !border-neutral-200 hover:bg-primary group',
-                                        'hover:!shadow-none focus:!shadow-none hover:!opacity-100',
-                                    )}
-                                />
-                            </Show>
-                            {/* <Show when={showProductCompare}>
-                                <Button
-                                    iconOnly
-                                    icon={<CompareIcon />}
-                                    iconProps={{ className: '!w-4 !h-4 group-hover:text-neutral-white' }}
-                                    variant="outlined"
-                                    onClick={() => handleSetCompareList(props?.id)}
-                                    className={classNames(
-                                        'swift-action-tocompare !p-[10px] !border-neutral-200 hover:bg-primary group',
-                                        'hover:!shadow-none focus:!shadow-none hover:!opacity-100',
-                                    )}
-                                />
-                            </Show> */}
-                        </div>
-                    </Show>
+
                 </div>
             </div>
         );
@@ -539,11 +497,12 @@ const ProductItem = (props) => {
                                 <Badge bold label={stockStatus.replace(/_/g, ' ')} className="!bg-neutral text-white !text-xs tablet:!text-sm" />
                             </div>
                         )}
-                        {showQuickView && (
+
+                        {showWishlist && !usedInWishlist && (
                             <>
                                 <Button
-                                    onClick={handleQuickView}
-                                    icon={<EyeIcon />}
+                                    onClick={() => handleFeed(props)}
+                                    icon={<HeartIcon />}
                                     iconProps={{
                                         className: 'w-3 h-3 !text-neutral-800 mr-[6px]',
                                     }}
@@ -551,33 +510,49 @@ const ProductItem = (props) => {
                                         '!bg-neutral-50 shadow-md invisible',
                                         'desktop:group-hover:visible',
                                         'absolute px-3 py-2',
-                                        'left-1/2 bottom-4 -translate-x-1/2 z-[2] w-32',
-                                        'swift-quickview-button',
-                                    )}
-                                    size="sm"
-                                >
-                                    <span className="text-sm !text-neutral-900 justify-center">{t('catalog:title:quickView')}</span>
-                                </Button>
-                                <Button
-                                    onClick={handleQuickView}
-                                    iconOnly
-                                    icon={<EyeSolidIcon />}
-                                    iconProps={{
-                                        className: classNames(
-                                            'w-[20px] !h-[20px] !text-neutral-800',
-                                            'absolute left-1/2 top-1/2 -translate-x-[50%] -translate-y-[50%]',
-                                        ),
-                                    }}
-                                    classNameText="relative"
-                                    className={classNames(
-                                        'desktop:hidden w-7 h-7',
-                                        '!bg-neutral-50 shadow-md',
-                                        'absolute bottom-2 left-2 z-[2]',
-                                        '!p-[6px]',
+                                        'left-1/4 bottom-4 -translate-x-1/4 z-[2]',
+                                        'swift-action-towishlist !p-[10px] !border-neutral-200 hover:bg-primary group',
                                     )}
                                 />
                             </>
                         )}
+                        {usedInWishlist && (
+                            <>
+                                <Button
+                                    onClick={() => handlingRemove()}
+                                    icon={<TrashIcon />}
+                                    iconProps={{
+                                        className: 'w-3 h-3 !text-neutral-800 mr-[6px]',
+                                    }}
+                                    className={classNames(
+                                        '!bg-neutral-50 shadow-md invisible',
+                                        'desktop:group-hover:visible',
+                                        'absolute px-3 py-2',
+                                        'left-1/4 bottom-4 -translate-x-1/4 z-[2]',
+                                        'swift-action-towishlist !p-[10px] !border-neutral-200 hover:bg-primary group',
+                                    )}
+                                />
+                            </>
+                        )}
+                        {showProductCompare && (
+                            <>
+                                <Button
+                                    onClick={() => handleSetCompareList(props?.id)}
+                                    icon={<CompareIcon />}
+                                    iconProps={{
+                                        className: 'w-3 h-3 !text-neutral-800 mr-[6px]',
+                                    }}
+                                    className={classNames(
+                                        '!bg-neutral-50 shadow-md invisible',
+                                        'desktop:group-hover:visible',
+                                        'absolute px-3 py-2',
+                                        'left-3/4 bottom-4 -translate-x-3/4 z-[2]',
+                                        'swift-action-towishlist !p-[10px] !border-neutral-200 hover:bg-primary group',
+                                    )}
+                                />
+                            </>
+                        )}
+
                         <Show when={enableImage}>
                             <ImageProductView
                                 t={t}

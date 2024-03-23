@@ -20,7 +20,7 @@ export const COLORS = {
         800: '#1a2b8c',
         900: '#14216b',
         get DEFAULT() {
-            return this[700];
+            return this[500];
         },
     },
     secondary: {
@@ -31,7 +31,7 @@ export const COLORS = {
         400: '#4D2F82',
         500: '#2C1457',
         get DEFAULT() {
-            return this[400];
+            return this[500];
         },
     },
     neutral: {
@@ -49,7 +49,7 @@ export const COLORS = {
         white: '#FFFFFF',
         black: '#000000',
         get DEFAULT() {
-            return this[700];
+            return this[500];
         },
     },
     green: {
